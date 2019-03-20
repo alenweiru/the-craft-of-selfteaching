@@ -1,80 +1,75 @@
-# Github进行fork后如何与原仓库同步
+# Github進行fork後如何與原倉庫同步
 
-实在是……有太多人同时在帮忙修订错别字或优化 xiaolai 的 `the-craft-of-selfteaching` 了。如果你提交的 pull request 未被接受且得到回复说：“重新fork”，其实是你遇到一个问题：
+實在是……有太多人同時在幫忙修訂錯別字或優化 xiaolai 的 `the-craft-of-selfteaching` 了。如果你提交的 pull request 未被接受且得到回复說：“重新fork”，其實是你遇到一個問題：
 
-> * 在你 fork 之后， xiaolai 的仓库又更新了；
-> * 但 github 不会自动帮你把 xiaolai 的仓库同步给你 fork 后的仓库；
-> * 导致你提交 pull request 时的版本和 xiaolai 的版本不一致。
+> - 在你 fork 之後， xiaolai 的倉庫又更新了；
+> - 但 github 不會自動幫你把 xiaolai 的倉庫同步給你 fork 後的倉庫；
+> - 導致你提交 pull request 時的版本和 xiaolai 的版本不一致。
 
-这个问题，用显得更“专业”的说法，叫做：`Github进行fork后如何与原仓库同步`。那到底怎么做呢？
+這個問題，用顯得更“專業”的說法，叫做：`Github進行fork後如何與原倉庫同步`。那到底怎麼做呢？
 
-最省事的办法可能是：
+最省事的辦法可能是：
 
-> * 在你fork的仓库setting页翻到最下方，然后delete这个仓库；
-> * 然后重新fork xiaolai 的仓库，并 git clone 到你的本地。
+> - 在你fork的倉庫setting頁翻到最下方，然後delete這個倉庫；
+> - 然後重新fork xiaolai 的倉庫，並 git clone 到你的本地。
 
-有时候，你需要用到这个省事的办法，比如 xiaolai 的仓库再次整理了 commit ；或者你已经玩坏了自己fork的仓库，又或者你所提交的大量内容仅是个人练习，但对 xiaolai 并无帮助—— 于是如果你就这样提交 pull request 会有大量无效内容吖，只能删了重来。
+有時候，你需要用到這個省事的辦法，比如xiaolai 的倉庫再次整理了commit ；或者你已經玩壞了自己fork的倉庫，又或者你所提交的大量內容僅是個人練習，但對xiaolai 並無幫助—— 於是如果你就這樣提交pull request 會有大量無效內容吖，只能刪了重來。
 
-但在更多情况下，删掉自己fork的库，应该是你的最后选择，而不应该是首选。
+但在更多情況下，刪掉自己fork的庫，應該是你的最後選擇，而不應該是首選。
 
-和很多人一起向 xiaolai 提交 pull request，这实在是一个反复练习 `merge` （中文说法：合并，或版本合并）的机会。毫不夸张地讲，版本管理是软件工程极其重要的规范，也是极其基础的必备技能。而 `merge` 则是版本管理中最必须也最常用的场景。
+和很多人一起向 xiaolai 提交 pull request，這實在是一個反复練習 `merge` （中文說法：合併，或版本合併）的機會。毫不誇張地講，版本管理是軟件工程極其重要的規範，也是極其基礎的必備技能。而 `merge` 則是版本管理中最必須也最常用的場景。
 
-那要不然，就多练练？以下是傻瓜版操作步骤，还细心配了截图，保管你从 0 也能上手。至于原理嘛，慢慢再搞懂吧。
+那要不然，就多練練？以下是傻瓜版操作步驟，還細心配了截圖，保管你從 0 也能上手。至於原理嘛，慢慢再搞懂吧。
 
-### merge前的设定
+### merge前的設定
 
-step 1、进入到本地仓库的目录。
+step 1、進入到本地倉庫的目錄。
 
-下面所有操作，如无特别说明，都是在你的本地仓库的目录下操作。比如我的本地仓库为`/from-liujuanjuan-the-craft-of-selfteaching`
+下面所有操作，如無特別說明，都是在你的本地倉庫的目錄下操作。比如我的本地倉庫為`/from-liujuanjuan-the-craft-of-selfteaching`
 
 ![image](https://user-images.githubusercontent.com/31027645/54422899-6938e880-474a-11e9-8768-27ac24673e28.png)
 
-
-step 2、执行命令 `git remote -v` 查看你的远程仓库的路径：
+step 2、執行命令 `git remote -v` 查看你的遠程倉庫的路徑：
 
 ![image](https://user-images.githubusercontent.com/31027645/54422975-95ed0000-474a-11e9-96bf-1018d6bc06f2.png)
 
-如果只有上面2行，说明你未设置 `upstream` （中文叫：上游代码库）。一般情况下，设置好一次 `upstream` 后就无需重复设置。
+如果只有上面2行，說明你未設置 `upstream` （中文叫：上游代碼庫）。一般情況下，設置好一次 `upstream` 後就無需重複設置。
 
-step 3、执行命令 `git remote add upstream https://github.com/selfteaching/the-craft-of-selfteaching.git` 把 xiaolai 的仓库设置为你的 `upstream` 。这个命令执行后，没有任何返回信息；所以再次执行命令 `git remote -v` 检查是否成功。
+step 3、執行命令 `git remote add upstream https://github.com/selfteaching/the-craft-of-selfteaching.git` 把 xiaolai 的倉庫設置為你的 `upstream` 。這個命令執行後，沒有任何返回信息；所以再次執行命令 `git remote -v` 檢查是否成功。
 
 ![image](https://user-images.githubusercontent.com/31027645/54423107-d8aed800-474a-11e9-9ab8-7bb901181283.png)
 
-step 4、执行命令 `git status` 检查本地是否有未提交的修改。如果有，则把你本地的有效修改，先从本地仓库推送到你的github仓库。最后再执行一次 `git status` 检查本地已无未提交的修改。
+step 4、執行命令 `git status` 檢查本地是否有未提交的修改。如果有，則把你本地的有效修改，先從本地倉庫推送到你的github倉庫。最後再執行一次 `git status` 檢查本地已無未提交的修改。
 
-`git add -A` 或者 `git add filename` 
+`git add -A` 或者 `git add filename`
 `git commit -m "your note"`
 `git push origin master`
 `git status`
 
-注1：作为新手，这一步建议严格执行，是为了避免大量无效修改或文本冲突带来的更复杂局面。
+注1：作為新手，這一步建議嚴格執行，是為了避免大量無效修改或文本衝突帶來的更複雜局面。
 
-注2：如果你已经在fork后的仓库提交了大量对 xiaolai 的仓库并没有价值的修改，那么想要pull request，还是重新回到本文最初的“最省事办法”吧。
+注2：如果你已經在fork後的倉庫提交了大量對 xiaolai 的倉庫並沒有價值的修改，那麼想要pull request，還是重新回到本文最初的“最省事辦法”吧。
 
+### merge 的關鍵命令
 
-### merge 的关键命令
+以下操作緊接著上面的步驟。
 
-以下操作紧接着上面的步骤。
-
-step 5、执行命令 `git fetch upstream` 抓取 xiaolai 原仓库的更新：
+step 5、執行命令 `git fetch upstream` 抓取 xiaolai 原倉庫的更新：
 
 ![image](https://user-images.githubusercontent.com/31027645/54448734-60b2d300-4787-11e9-9fdf-90fcc2e66052.png)
 
-step 6、执行命令 `git checkout master` 切换到 master 分支：
+step 6、執行命令 `git checkout master` 切換到 master 分支：
 
 ![image](https://user-images.githubusercontent.com/31027645/54448759-6dcfc200-4787-11e9-8bbc-a5beef23ea88.png)
 
-step 7、执行命令 `git merge upstream/master` 合并远程的master分支：
+step 7、執行命令 `git merge upstream/master` 合併遠程的master分支：
 
 ![image](https://user-images.githubusercontent.com/31027645/54449526-47128b00-4789-11e9-9add-09217eb91a68.png)
 
+step 8、執行命令 `git push ` 把本地倉庫向github倉庫（你fork到自己名下的倉庫）推送修改
 
-step 8、执行命令 `git push ` 把本地仓库向github仓库（你fork到自己名下的仓库）推送修改
-
-如果担心自己不小心改了哪里，可以再次执行命令 `git status` 检查哪些文件有变化。这个操作仅是检查，不会改变任何状态，放心用。
+如果擔心自己不小心改了哪裡，可以再次執行命令 `git status` 檢查哪些文件有變化。這個操作僅是檢查，不會改變任何狀態，放心用。
 
 ![image](https://user-images.githubusercontent.com/31027645/54449665-a07aba00-4789-11e9-9181-bdcc814fffe6.png)
 
-
-现在你已经解决了fork的仓库和原仓库版本不一致的问题。可以放心向 xiaolai 发起 pull request 了。如果以上操作你花了不少时间，而 xiaolai 的仓库又恰好更新了。很好，一次新的练习机会来了……
-
+現在你已經解決了fork的倉庫和原倉庫版本不一致的問題。可以放心向 xiaolai 發起 pull request 了。如果以上操作你花了不少時間，而 xiaolai 的倉庫又恰好更新了。很好，一次新的練習機會來了……
