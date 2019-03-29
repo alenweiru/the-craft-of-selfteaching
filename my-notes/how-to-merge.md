@@ -8,7 +8,7 @@
 
 
 這個問題，用顯得更“專業”的說法，叫做：`Github進行fork後如何與原倉庫同步`。那到底怎麼做呢？
-=======
+
 這個問題，用顯得更“專業”的說法，叫做：`Github進行fork後如何與原倉庫同步 `。那到底怎麼做呢？
 
 
@@ -76,4 +76,4 @@ step 8、執行命令 `git push ` 把本地倉庫向github倉庫（你fork到自
 
 ![image](https://user-images.githubusercontent.com/31027645/54449665-a07aba00-4789-11e9-9181-bdcc814fffe6.png)
 
-現在你已經解決了fork的倉庫和原倉庫版本不一致的問題。可以放心向 xiaolai 發起 pull request 了。如果以上操作你花了不少時間，而 xiaolai 的倉庫又恰好更新了。很好，一次新的練習機會來了……
+現在你已經解決了fork的倉庫和原倉庫版本不一致的問題。可以放心向 xiaolai 發起 pull request 了。如果以上操作你花了不少時間，而 xiaolai 的倉庫又恰好更新了。很好，一次新的練習機會來了……gi
